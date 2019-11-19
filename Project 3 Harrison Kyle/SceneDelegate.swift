@@ -74,7 +74,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
     func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
         if let navVC = primaryViewController as? UINavigationController {
             for controller in navVC.viewControllers {
-//                if controller.restorationIdentifier = // FINISH THIS CODE
+                if controller.restorationIdentifier == "mapVC" {
+                    return controller
+                }
             }
         }
         return UIViewController()
@@ -82,3 +84,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
 
 }
 
+private func mapViewController() -> UIViewController {
+    let storyboard = UIStoryboard(name: "Main", bundle:nil)
+    return storyboard.instantiateViewController(identifier: "mapVC")
+}

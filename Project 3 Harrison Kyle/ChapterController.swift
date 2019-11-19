@@ -11,9 +11,21 @@ import Foundation
 
 class ChapterController : UITableViewController {
     
+    var rowTitle: String?
     
     override func viewDidLoad () {
         super.viewDidLoad()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier != "BookToScripture" {
+            if let test = sender as? UITableViewCell {
+                if let title = test.textLabel?.text {
+                    segue.destination.title = title
+                }
+                
+            }
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -21,14 +33,11 @@ class ChapterController : UITableViewController {
         if let subdivisionName = SelectedRows.selectedBook?.subdiv {
             cell.textLabel?.text = "\(subdivisionName) \(indexPath.row + 1)"
         }
-        
-        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         SelectedRows.selectedChapter = indexPath.row + 1
-
     }
     
     
@@ -38,5 +47,5 @@ class ChapterController : UITableViewController {
         }
         return 0
     }
-
+    
 }

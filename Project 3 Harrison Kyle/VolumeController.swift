@@ -10,10 +10,19 @@ import Foundation
 
 class VolumeController : UITableViewController {
     var books: [Book] = GeoDatabase.shared.volumes()
-    
+
     
     override func viewDidLoad () {
         super.viewDidLoad()
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let selectionIndexPath = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRow(at: selectionIndexPath, animated: animated)
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

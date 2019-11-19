@@ -13,28 +13,54 @@ import CoreLocation
 class MapController : UIViewController {
     
     private var locationManager = CLLocationManager()
-
-    
+    var pinId: Int = 0
+    var refreshPoints: Bool?
     @IBOutlet var mapView: MKMapView!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.mapType = .satellite
         var annotations: [Annotation] = []
         
         if CLLocationManager.authorizationStatus() == .notDetermined {
-         locationManager.requestWhenInUseAuthorization()
+            locationManager.requestWhenInUseAuthorization()
         }
-        
-        if let places = accessPoint.shared.geoPlaces {
-            for location in places {
-
-                annotations.append(Annotation(title: location.placename, subtitle: "", coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)))
+        if pinId != 0 {
+            showIndividualPin()
+            pinId = 0
+        }
+        else {
+            if let places = accessPoint.shared.geoPlaces {
+                for location in places {
+                    
+                    annotations.append(Annotation(title: location.placename, subtitle: "", coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)))
+                }
+                mapView.showAnnotations(annotations, animated: true)
+                if places.count == 0 {
+                    mapView.userTrackingMode = .follow
+                }
             }
-            mapView.showAnnotations(annotations, animated: true)
+        }
+        if let splitVC = splitViewController {
+            navigationItem.leftItemsSupplementBackButton = true
+            navigationItem.leftBarButtonItem = splitVC.displayModeButtonItem
         }
     }
+    
+    
+    
+    func showIndividualPin() -> Void {
+        if let geoPlace = GeoDatabase.shared.geoPlaceForId(pinId) {
+            mapView.setCamera(MKMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: geoPlace.latitude, longitude: geoPlace.longitude), fromDistance: geoPlace.viewAltitude ?? 2000, pitch: 0.0, heading: geoPlace.viewHeading ?? 200), animated: true)
+            mapView.addAnnotation(Annotation(title: geoPlace.placename, subtitle: nil, coordinate: CLLocationCoordinate2D(latitude: geoPlace.latitude, longitude: geoPlace.longitude)))
+        }
+        pinId = 0
+        refreshPoints = true
+        
+    }
+    
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch(CLLocationManager.authorizationStatus()) {
@@ -46,24 +72,38 @@ class MapController : UIViewController {
             fatalError()
         }
     }
-    
-    @IBAction func centerOnMyLocation(_ sender: Any) {
-        if let annotations = accessPoint.shared.geoPlaces {
-//            mapView.addAnnotations()
-//        mapView.setRegion(MKCoordinateRegion(center: userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.04, longitudeDelta: 0.04)), animated: true)
+   
+    @IBAction func mapButton(_ sender: UIBarButtonItem) {
+        if let refresh = refreshPoints {
+            if refresh {
+                ScriptureRenderer.shared.injectGeoPlaceCollector(accessPoint.shared)
+                let _ = ScriptureRenderer.shared.htmlForBookId(SelectedRows.selectedBook!.id, chapter: SelectedRows.selectedChapter ?? 0)
+                var annotations: [Annotation] = []
+                if let places = accessPoint.shared.geoPlaces {
+                    for place in places {
+                        annotations.append(Annotation(title: place.placename, subtitle: nil, coordinate: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)))
+                    }
+                }
+                
+                mapView.addAnnotations(annotations)
+            }
+            else {
+                
+            }
         }
-        else {print("Can't find location.")}
+        sender.title = "Stinky"
+        sender.image = nil
+        
     }
 }
-
-extension MapController : MKMapViewDelegate {
- func mapView(_ mapView: MKMapView,
- viewFor annotation: MKAnnotation) -> MKAnnotationView? {
- let view = mapView.dequeueReusableAnnotationView(withIdentifier: "SomeID",
- for: annotation)
- view.canShowCallout = true
- view.leftCalloutAccessoryView = UIImageView(image: UIImage(named: "BYU_SM9"))
- view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
- return view
- }
+    extension MapController : MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView,
+                 viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let view = mapView.dequeueReusableAnnotationView(withIdentifier: "SomeID",
+                                                         for: annotation)
+        view.canShowCallout = true
+        view.leftCalloutAccessoryView = UIImageView(image: UIImage(named: "BYU_SM9"))
+        view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        return view
+    }
 }

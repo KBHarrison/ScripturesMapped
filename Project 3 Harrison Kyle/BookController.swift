@@ -23,11 +23,8 @@ class BookController : UITableViewController {
     
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let nextViewController = segue.destination as? UITableViewController {
-            if let volume = sender {
+            if let _ = sender {
                 nextViewController.title = newTitle
-//                    (volume as AnyObject).text
-                print(volume)
-
             }
         }
     }
@@ -45,16 +42,23 @@ class BookController : UITableViewController {
         SelectedRows.selectedName = self.tableView.cellForRow(at: indexPath)?.textLabel?.text
         
         if let chapterNumber = SelectedRows.selectedBook?.numChapters {
-            if (chapterNumber < 2) {
+            if (chapterNumber == 1) {
+                print("Chapter Number: \(chapterNumber)")
                 SelectedRows.selectedChapter = 1
-                    performSegue(withIdentifier: "BookToScripture", sender: self)
+                performSegue(withIdentifier: "BookToScripture", sender: self)
                 }
+            else if chapterNumber == 0 {
+                print("Chapter Number: \(chapterNumber)")
+                performSegue(withIdentifier: "BookToScripture", sender: self)
+            }
             else {
+                print("Chapter Number: \(chapterNumber)")
                 newTitle = (self.tableView.cellForRow(at: indexPath)?.textLabel?.text)!
                 performSegue(withIdentifier: "BookToChapter", sender: self)
             }
         }
         else {
+            print("ChapterNumber was nil")
             performSegue(withIdentifier: "BookToScripture", sender: self)
 
         }
