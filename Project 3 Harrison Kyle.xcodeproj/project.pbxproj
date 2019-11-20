@@ -99,6 +99,53 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		FC1CFA862383922200CC1233 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FCEF6A7D2379F28E007D1F1D /* BookController.swift */,
+				FC1CFA7F237CC3E600CC1233 /* MapController.swift */,
+				FCEF6A83237A596A007D1F1D /* ScriptureController.swift */,
+				FCEF6A7F2379FA45007D1F1D /* ChapterController.swift */,
+				FCEF6A7B236E3AFB007D1F1D /* VolumeController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		FC1CFA872383924000CC1233 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FCEF6A812379FB15007D1F1D /* SelectedRows.swift */,
+				FC1CFA83237E54F000CC1233 /* Annotation.swift */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FC1CFA882383925200CC1233 /* Provided Tools */ = {
+			isa = PBXGroup;
+			children = (
+				FCEF6A64236A3946007D1F1D /* GeoDatabase.swift */,
+				FCEF6A66236A3946007D1F1D /* GeoPlaceCollector.swift */,
+				FCEF6A67236A3946007D1F1D /* ScriptureRenderer.swift */,
+				FCEF6A60236A3935007D1F1D /* GeoCategory.swift */,
+				FCEF6A65236A3946007D1F1D /* String+Extensions.swift */,
+				FCEF6A62236A3939007D1F1D /* geocode.js */,
+				FCEF6A72236A394E007D1F1D /* scripture.css */,
+				FCEF6A79236A8311007D1F1D /* geo.21.sqlite */,
+				FCEF6A68236A3946007D1F1D /* GeoPlace.swift */,
+				FCEF6A6A236A3946007D1F1D /* GeoTag.swift */,
+			);
+			path = "Provided Tools";
+			sourceTree = "<group>";
+		};
+		FC1CFA892383926900CC1233 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FCEF6A69236A3946007D1F1D /* Scripture.swift */,
+				FCEF6A5D236A391C007D1F1D /* Book.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		FCEF6A3B236A38F3007D1F1D = {
 			isa = PBXGroup;
 			children = (
@@ -120,33 +167,18 @@
 		FCEF6A46236A38F3007D1F1D /* Project 3 Harrison Kyle */ = {
 			isa = PBXGroup;
 			children = (
+				FC1CFA892383926900CC1233 /* Models */,
+				FC1CFA882383925200CC1233 /* Provided Tools */,
+				FC1CFA872383924000CC1233 /* Supporting Files */,
+				FC1CFA862383922200CC1233 /* Controllers */,
 				FCEF6A47236A38F3007D1F1D /* AppDelegate.swift */,
-				FCEF6A5D236A391C007D1F1D /* Book.swift */,
-				FCEF6A69236A3946007D1F1D /* Scripture.swift */,
-				FCEF6A6A236A3946007D1F1D /* GeoTag.swift */,
-				FCEF6A68236A3946007D1F1D /* GeoPlace.swift */,
-				FCEF6A60236A3935007D1F1D /* GeoCategory.swift */,
 				FCEF6A49236A38F3007D1F1D /* SceneDelegate.swift */,
-				FCEF6A79236A8311007D1F1D /* geo.21.sqlite */,
 				FCEF6A4B236A38F3007D1F1D /* MasterViewController.swift */,
-				FCEF6A64236A3946007D1F1D /* GeoDatabase.swift */,
-				FCEF6A66236A3946007D1F1D /* GeoPlaceCollector.swift */,
-				FCEF6A72236A394E007D1F1D /* scripture.css */,
-				FCEF6A67236A3946007D1F1D /* ScriptureRenderer.swift */,
-				FCEF6A65236A3946007D1F1D /* String+Extensions.swift */,
-				FCEF6A62236A3939007D1F1D /* geocode.js */,
 				FCEF6A4D236A38F3007D1F1D /* DetailViewController.swift */,
 				FCEF6A4F236A38F3007D1F1D /* Main.storyboard */,
 				FCEF6A52236A38F5007D1F1D /* Assets.xcassets */,
 				FCEF6A54236A38F5007D1F1D /* LaunchScreen.storyboard */,
 				FCEF6A57236A38F5007D1F1D /* Info.plist */,
-				FCEF6A7B236E3AFB007D1F1D /* VolumeController.swift */,
-				FCEF6A7D2379F28E007D1F1D /* BookController.swift */,
-				FCEF6A7F2379FA45007D1F1D /* ChapterController.swift */,
-				FCEF6A812379FB15007D1F1D /* SelectedRows.swift */,
-				FCEF6A83237A596A007D1F1D /* ScriptureController.swift */,
-				FC1CFA7F237CC3E600CC1233 /* MapController.swift */,
-				FC1CFA83237E54F000CC1233 /* Annotation.swift */,
 			);
 			path = "Project 3 Harrison Kyle";
 			sourceTree = "<group>";

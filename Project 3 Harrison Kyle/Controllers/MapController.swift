@@ -14,9 +14,11 @@ class MapController : UIViewController {
     
     private var locationManager = CLLocationManager()
     var pinId: Int = 0
-    var refreshPoints: Bool?
+    var refreshPoints: Bool = false
     @IBOutlet var mapView: MKMapView!
+    var lastTitle: String?
     
+    @IBOutlet weak var mapButton: UIBarButtonItem!
     
     
     override func viewDidLoad() {
@@ -49,15 +51,16 @@ class MapController : UIViewController {
         }
     }
     
-    
+
     
     func showIndividualPin() -> Void {
         if let geoPlace = GeoDatabase.shared.geoPlaceForId(pinId) {
-            mapView.setCamera(MKMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: geoPlace.latitude, longitude: geoPlace.longitude), fromDistance: geoPlace.viewAltitude ?? 2000, pitch: 0.0, heading: geoPlace.viewHeading ?? 200), animated: true)
+            mapView.setCamera(MKMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: geoPlace.latitude, longitude: geoPlace.longitude), fromDistance: geoPlace.viewAltitude ?? 2000, pitch: 0.0, heading: geoPlace.viewHeading ?? 200), animated: false)
             mapView.addAnnotation(Annotation(title: geoPlace.placename, subtitle: nil, coordinate: CLLocationCoordinate2D(latitude: geoPlace.latitude, longitude: geoPlace.longitude)))
         }
         pinId = 0
         refreshPoints = true
+        mapButton.title = "View All"
         
     }
     
@@ -72,31 +75,33 @@ class MapController : UIViewController {
             fatalError()
         }
     }
-   
+    
     @IBAction func mapButton(_ sender: UIBarButtonItem) {
-        if let refresh = refreshPoints {
-            if refresh {
-                ScriptureRenderer.shared.injectGeoPlaceCollector(accessPoint.shared)
-                let _ = ScriptureRenderer.shared.htmlForBookId(SelectedRows.selectedBook!.id, chapter: SelectedRows.selectedChapter ?? 0)
-                var annotations: [Annotation] = []
-                if let places = accessPoint.shared.geoPlaces {
-                    for place in places {
-                        annotations.append(Annotation(title: place.placename, subtitle: nil, coordinate: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)))
-                    }
+        if refreshPoints {
+            ScriptureRenderer.shared.injectGeoPlaceCollector(accessPoint.shared)
+            let _ = ScriptureRenderer.shared.htmlForBookId(SelectedRows.selectedBook!.id, chapter: SelectedRows.selectedChapter ?? 0)
+            var annotations: [Annotation] = []
+            if let places = accessPoint.shared.geoPlaces {
+                for place in places {
+                    annotations.append(Annotation(title: place.placename, subtitle: nil, coordinate: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)))
                 }
-                
-                mapView.addAnnotations(annotations)
             }
-            else {
-                
-            }
+            mapButton.title = "My Location"
+            mapView.showAnnotations(annotations, animated: true)
+            refreshPoints = false
         }
-        sender.title = "Stinky"
-        sender.image = nil
-        
+        else {
+            mapView.userTrackingMode = .follow
+//            if let title = lastTitle {
+//                mapView. = title
+//            }
+        }
     }
+    
+    
 }
-    extension MapController : MKMapViewDelegate {
+
+extension MapController : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView,
                  viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let view = mapView.dequeueReusableAnnotationView(withIdentifier: "SomeID",

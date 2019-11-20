@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Master-->
+        <!--Scriptures-->
         <scene sceneID="pY4-Hu-kfo">
             <objects>
-                <navigationController title="Master" id="RMx-3f-FxP" sceneMemberID="viewController">
+                <navigationController title="Scriptures" id="RMx-3f-FxP" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Pmd-2v-anx">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -23,23 +23,24 @@
             </objects>
             <point key="canvasLocation" x="-38" y="-630"/>
         </scene>
-        <!--Detail-->
+        <!--Map-->
         <scene sceneID="yUG-lL-AsK">
             <objects>
-                <viewController title="Detail" id="JEX-9P-axG" customClass="MapController" customModule="Project_3_Harrison_Kyle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Map" id="JEX-9P-axG" customClass="MapController" customModule="Project_3_Harrison_Kyle" customModuleProvider="target" sceneMemberID="viewController">
                     <mapView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="bPg-Kf-1mQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </mapView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM">
-                        <barButtonItem key="rightBarButtonItem" title="testTitle" image="arrow.clockwise" catalog="system" id="UB2-KD-ad1">
+                        <barButtonItem key="rightBarButtonItem" title="My Location" id="UB2-KD-ad1">
                             <connections>
                                 <action selector="mapButton:" destination="JEX-9P-axG" id="uMC-sQ-Cgf"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="mapButton" destination="UB2-KD-ad1" id="miP-kK-URy"/>
                         <outlet property="mapView" destination="bPg-Kf-1mQ" id="2IU-ae-3ok"/>
                     </connections>
                 </viewController>
@@ -73,6 +74,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="msa-bC-82M"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Tab-9A-YMb"/>
                     <connections>
                         <outlet property="scriptureView" destination="2pl-Ka-qPg" id="KXG-LO-i59"/>
                         <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="ShowMap" id="d4S-8s-JEZ"/>
@@ -122,7 +124,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
-                                    <segue destination="vRJ-Gw-P4Q" kind="showDetail" id="vlU-b4-PqQ"/>
+                                    <segue destination="vRJ-Gw-P4Q" kind="show" id="vlU-b4-PqQ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -161,9 +163,10 @@
                             <outlet property="delegate" destination="vRJ-Gw-P4Q" id="gJP-Ek-0SH"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="x57-hg-4P7"/>
                     <connections>
-                        <segue destination="U8a-tE-Vya" kind="showDetail" identifier="BookToScripture" id="bKl-do-Mla"/>
-                        <segue destination="RkO-H9-QOr" kind="showDetail" identifier="BookToChapter" id="IdN-oc-saP"/>
+                        <segue destination="U8a-tE-Vya" kind="show" identifier="BookToScripture" id="bKl-do-Mla"/>
+                        <segue destination="RkO-H9-QOr" kind="show" identifier="BookToChapter" id="IdN-oc-saP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b7a-7G-Lx3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -187,7 +190,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="U8a-tE-Vya" kind="showDetail" id="PWy-bs-RSa"/>
+                                    <segue destination="U8a-tE-Vya" kind="show" id="PWy-bs-RSa"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -219,11 +222,8 @@
             <point key="canvasLocation" x="-39" y="638"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="arrow.clockwise" catalog="system" width="56" height="64"/>
-    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="d4S-8s-JEZ"/>
-        <segue reference="bKl-do-Mla"/>
+        <segue reference="Tll-UG-LXB"/>
+        <segue reference="PWy-bs-RSa"/>
     </inferredMetricsTieBreakers>
 </document>

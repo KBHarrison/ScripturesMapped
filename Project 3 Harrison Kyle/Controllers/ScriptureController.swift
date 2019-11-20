@@ -14,7 +14,7 @@ class ScriptureController : UIViewController, WKNavigationDelegate {
     
     var geoPlaceId: Int = 0
     private weak var mapViewController: MapController?
-
+    
     
     
     @IBOutlet weak var scriptureView: WKWebView!
@@ -38,7 +38,7 @@ class ScriptureController : UIViewController, WKNavigationDelegate {
                 else {
                     if let ownTitle = self.title {
                         nextViewController.title = ownTitle
-
+                        
                     }
                 }
             }
@@ -48,6 +48,16 @@ class ScriptureController : UIViewController, WKNavigationDelegate {
         }
         
     }
+    
+    func traitCollectionDidChange(previousTraitCollection: UITraitCollection) {
+//        if previousTraitCollection.horizontalSizeClass =  {
+//            print("It was compact")
+//        } else  {
+//            print("It was not compact")
+//        }
+        print(previousTraitCollection.horizontalSizeClass)
+    }
+    
     
     private func configureDetailViewController() {
         mapViewController = nil
