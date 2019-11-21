@@ -38,7 +38,7 @@ class VolumeController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        SelectedRows.volumeId = indexPath.row + 1
+        RowSelector.shared.volumeId = indexPath.row + 1
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

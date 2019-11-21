@@ -23,7 +23,7 @@ class ScriptureController : UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
         scriptureView.navigationDelegate = self
         ScriptureRenderer.shared.injectGeoPlaceCollector(accessPoint.shared)
-        let html = ScriptureRenderer.shared.htmlForBookId(SelectedRows.selectedBook!.id, chapter: SelectedRows.selectedChapter ?? 0)
+        let html = ScriptureRenderer.shared.htmlForBookId(RowSelector.shared.selectedBook!.id, chapter: RowSelector.shared.selectedChapter ?? 0)
         scriptureView.loadHTMLString(html, baseURL: nil)
         configureDetailViewController()
     }
@@ -83,7 +83,7 @@ class ScriptureController : UIViewController, WKNavigationDelegate {
     
     @objc func showMap() {
         ScriptureRenderer.shared.injectGeoPlaceCollector(accessPoint.shared)
-        let _ = ScriptureRenderer.shared.htmlForBookId(SelectedRows.selectedBook!.id, chapter: SelectedRows.selectedChapter ?? 0)
+        let _ = ScriptureRenderer.shared.htmlForBookId(RowSelector.shared.selectedBook!.id, chapter: RowSelector.shared.selectedChapter ?? 0)
         
         performSegue(withIdentifier: "ShowMap", sender: self)
         

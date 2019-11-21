@@ -30,19 +30,19 @@ class ChapterController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChapterCell", for: indexPath)
-        if let subdivisionName = SelectedRows.selectedBook?.subdiv {
+        if let subdivisionName = RowSelector.shared.selectedBook?.subdiv {
             cell.textLabel?.text = "\(subdivisionName) \(indexPath.row + 1)"
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        SelectedRows.selectedChapter = indexPath.row + 1
+        RowSelector.shared.selectedChapter = indexPath.row + 1
     }
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let rows = SelectedRows.selectedBook?.numChapters {
+        if let rows = RowSelector.shared.selectedBook?.numChapters {
             return rows
         }
         return 0

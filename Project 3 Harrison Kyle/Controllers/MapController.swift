@@ -89,7 +89,7 @@ class MapController : UIViewController {
     @IBAction func mapButton(_ sender: UIBarButtonItem) {
         if refreshPoints {
             ScriptureRenderer.shared.injectGeoPlaceCollector(accessPoint.shared)
-            let _ = ScriptureRenderer.shared.htmlForBookId(SelectedRows.selectedBook!.id, chapter: SelectedRows.selectedChapter ?? 0)
+            let _ = ScriptureRenderer.shared.htmlForBookId(RowSelector.shared.selectedBook!.id, chapter: RowSelector.shared.selectedChapter ?? 0)
             var annotations: [Annotation] = []
             if let places = accessPoint.shared.geoPlaces {
                 for place in places {

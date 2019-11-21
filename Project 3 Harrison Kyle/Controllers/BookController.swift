@@ -16,8 +16,8 @@ class BookController : UITableViewController {
     
     override func viewDidLoad () {
         super.viewDidLoad()
-        books = GeoDatabase.shared.booksForParentId(SelectedRows.volumeId ?? 1)
-        SelectedRows.possibleBooks = books
+        books = GeoDatabase.shared.booksForParentId(RowSelector.shared.volumeId ?? 1)
+        RowSelector.shared.possibleBooks = books
 
     }
     
@@ -39,12 +39,12 @@ class BookController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        SelectedRows.selectedName = self.tableView.cellForRow(at: indexPath)?.textLabel?.text
+        RowSelector.shared.selectedName = self.tableView.cellForRow(at: indexPath)?.textLabel?.text
         
-        if let chapterNumber = SelectedRows.selectedBook?.numChapters {
+        if let chapterNumber = RowSelector.shared.selectedBook?.numChapters {
             if (chapterNumber == 1) {
                 print("Chapter Number: \(chapterNumber)")
-                SelectedRows.selectedChapter = 1
+                RowSelector.shared.selectedChapter = 1
                 performSegue(withIdentifier: "BookToScripture", sender: self)
                 }
             else if chapterNumber == 0 {
