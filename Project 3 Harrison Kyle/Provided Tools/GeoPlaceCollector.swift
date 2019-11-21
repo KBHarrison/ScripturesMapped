@@ -19,12 +19,12 @@ class Collector: GeoPlaceCollector {
     
     func setGeocodedPlaces(_ geocodedPlaces: [GeoPlace]?) {
         geoPlaces = geocodedPlaces
-
+        
         if let placeList = geocodedPlaces {
             var places = placeList
             var names: [String] = []
             var duplicatePlaces: [Int] = []
-
+            
             for (index, place) in places.enumerated() {
                 if names.contains(place.placename) {
                     duplicatePlaces.append(index)
@@ -33,7 +33,7 @@ class Collector: GeoPlaceCollector {
                     names.append(place.placename)
                 }
             }
-
+            
             // Loop through duplicatePlaces Int index backwards to remove records at the associated index. Backwards so as to not change record indices by removing other records.
             if duplicatePlaces.count > 0 {
                 for index in stride(from: duplicatePlaces.count, to: 1, by: -1) {

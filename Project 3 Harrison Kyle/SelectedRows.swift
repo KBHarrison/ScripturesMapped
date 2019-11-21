@@ -9,13 +9,13 @@
 import Foundation
 
 class SelectedRows {
-    static var volumeId: Int?
-    static var bookId: Int?
-    static var chapterId: Int?
-    static var selectedChapter: Int?
-    static var possibleBooks: [Book]?
-    static var selectedName: String?
-    static var selectedBook: Book? {
+    var volumeId: Int?
+    var bookId: Int?
+    var chapterId: Int?
+    var selectedChapter: Int?
+    var possibleBooks: [Book]?
+    var selectedName: String?
+    var selectedBook: Book? {
         if let bookList = possibleBooks {
             if let name = selectedName {
                 return bookList.filter { $0.fullName == name }[0]
@@ -23,5 +23,12 @@ class SelectedRows {
             else {return nil}
         }
         else {return nil}
+    }
+}
+
+class RowSelector {
+    static var shared = SelectedRows()
+    init() {
+        
     }
 }

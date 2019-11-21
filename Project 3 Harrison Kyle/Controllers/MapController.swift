@@ -39,6 +39,7 @@ class MapController : UIViewController {
                     
                     annotations.append(Annotation(title: location.placename, subtitle: "", coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)))
                 }
+                mapView.removeAnnotations(mapView.annotations)
                 mapView.showAnnotations(annotations, animated: true)
                 if places.count == 0 {
                     mapView.userTrackingMode = .follow
@@ -51,7 +52,16 @@ class MapController : UIViewController {
         }
     }
     
-
+    func showPoints() {
+        var annotations: [Annotation] = []
+        if let points = accessPoint.shared.geoPlaces {
+            for point in points {
+                annotations.append(Annotation(title: point.placename, subtitle: nil, coordinate: CLLocationCoordinate2D(latitude: point.latitude, longitude: point.longitude)))
+            }
+            mapView.removeAnnotations(mapView.annotations)
+            mapView.showAnnotations(annotations, animated: true)
+        }
+    }
     
     func showIndividualPin() -> Void {
         if let geoPlace = GeoDatabase.shared.geoPlaceForId(pinId) {
@@ -86,15 +96,17 @@ class MapController : UIViewController {
                     annotations.append(Annotation(title: place.placename, subtitle: nil, coordinate: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)))
                 }
             }
+            if let scriptureTitle = lastTitle {
+                self.title = scriptureTitle
+            }
             mapButton.title = "My Location"
+            mapView.removeAnnotations(mapView.annotations)
             mapView.showAnnotations(annotations, animated: true)
             refreshPoints = false
         }
         else {
             mapView.userTrackingMode = .follow
-//            if let title = lastTitle {
-//                mapView. = title
-//            }
+            self.title = "My Location"
         }
     }
     

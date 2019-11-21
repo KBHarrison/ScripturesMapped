@@ -12,10 +12,10 @@ import GRDB
 struct Book : TableRecord, FetchableRecord {
     
     // MARK: - Constants
-
+    
     struct Table {
         static let databaseTableName = "book"
-
+        
         static let id = "ID"
         static let abbr = "Abbr"
         static let citeAbbr = "CiteAbbr"
@@ -30,7 +30,7 @@ struct Book : TableRecord, FetchableRecord {
         static let gridName = "GridName"
         static let heading2 = "Heading2"
     }
-
+    
     // MARK: - Properties
     
     var id: Int             // Surrogate ID (1, 2, 3, 4, 5, 101, 102, ...)
@@ -60,7 +60,7 @@ struct Book : TableRecord, FetchableRecord {
         citeFull = ""
         heading2 = ""
     }
-
+    
     init(row: Row) {
         id = row[Table.id]
         abbr = row[Table.abbr]

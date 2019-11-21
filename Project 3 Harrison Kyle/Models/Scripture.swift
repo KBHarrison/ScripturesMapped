@@ -10,12 +10,12 @@ import Foundation
 import GRDB
 
 struct Scripture : TableRecord, FetchableRecord {
-
+    
     // MARK: - Constants
-
+    
     struct Table {
         static let databaseTableName = "scripture"
-
+        
         static let id = "ID"
         static let bookId = "BookID"
         static let chapter = "Chapter"
@@ -23,16 +23,16 @@ struct Scripture : TableRecord, FetchableRecord {
         static let flag = "Flag"
         static let text = "Text"
     }
-
+    
     // MARK: - Properties
-
+    
     var id: Int
     var bookId: Int
     var chapter: Int
     var verse: Int
     var flag: String
     var text: String
-
+    
     // MARK: - Initialization
     
     init(row: Row) {

@@ -31,31 +31,21 @@ class ScriptureController : UIViewController, WKNavigationDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navController = segue.destination as? UINavigationController {
             if let nextViewController = navController.topViewController as? MapController {
-                if geoPlaceId != 0 {
-                    nextViewController.pinId = geoPlaceId
-                    nextViewController.title = GeoDatabase.shared.geoPlaceForId(geoPlaceId)?.placename
-                }
-                else {
-                    if let ownTitle = self.title {
+                if let ownTitle = self.title {
+                    if geoPlaceId != 0 {
+                        nextViewController.pinId = geoPlaceId
+                        nextViewController.title = GeoDatabase.shared.geoPlaceForId(geoPlaceId)?.placename
+                        nextViewController.lastTitle = ownTitle
+                    }
+                    else {
                         nextViewController.title = ownTitle
+                        nextViewController.lastTitle = ownTitle
                         
                     }
                 }
             }
-            
             geoPlaceId = 0
-            
         }
-        
-    }
-    
-    func traitCollectionDidChange(previousTraitCollection: UITraitCollection) {
-//        if previousTraitCollection.horizontalSizeClass =  {
-//            print("It was compact")
-//        } else  {
-//            print("It was not compact")
-//        }
-        print(previousTraitCollection.horizontalSizeClass)
     }
     
     
@@ -64,6 +54,8 @@ class ScriptureController : UIViewController, WKNavigationDelegate {
         if let splitVC = splitViewController {
             if let navVC = splitVC.viewControllers.last as? UINavigationController {
                 mapViewController = navVC.topViewController as? MapController
+                mapViewController?.showPoints()
+                mapViewController?.title = self.title
             }
             else {
                 navigationItem.rightBarButtonItem = nil
@@ -71,6 +63,17 @@ class ScriptureController : UIViewController, WKNavigationDelegate {
         }
         configureRightButton()
     }
+    
+     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+         super.viewWillTransition(to: size, with: coordinator)
+         if UIDevice.current.orientation.isLandscape {
+            navigationItem.rightBarButtonItem = nil
+             print("Landscape")
+         } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Map", style: .plain, target: self, action: #selector(ScriptureController.showMap))
+             print("Portrait")
+         }
+     }
     
     private func configureRightButton() {
         if mapViewController == nil {

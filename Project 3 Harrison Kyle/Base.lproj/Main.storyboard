@@ -32,7 +32,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </mapView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM">
+                    <navigationItem key="navigationItem" title="Map" id="mOI-FS-AaM">
                         <barButtonItem key="rightBarButtonItem" title="My Location" id="UB2-KD-ad1">
                             <connections>
                                 <action selector="mapButton:" destination="JEX-9P-axG" id="uMC-sQ-Cgf"/>
