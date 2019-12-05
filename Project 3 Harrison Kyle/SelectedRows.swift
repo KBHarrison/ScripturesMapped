@@ -28,7 +28,5 @@ class SelectedRows {
 
 class RowSelector {
     static var shared = SelectedRows()
-    init() {
-        
-    }
+    init() {}
 }

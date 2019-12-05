@@ -10,18 +10,22 @@ import UIKit
 
 class BookController : UITableViewController {
     
+    //MARK: - Class Variables
     
     var books: [Book] = []
     var newTitle: String = ""
+    
+    //MARK: - Lifecycle Method
     
     override func viewDidLoad () {
         super.viewDidLoad()
         books = GeoDatabase.shared.booksForParentId(RowSelector.shared.volumeId ?? 1)
         RowSelector.shared.possibleBooks = books
-
     }
     
-        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //MARK: - Delegate methods
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let nextViewController = segue.destination as? UITableViewController {
             if let _ = sender {
                 nextViewController.title = newTitle
@@ -34,7 +38,6 @@ class BookController : UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookCell", for: indexPath)
         cell.textLabel?.text = books[indexPath.item].fullName
         return cell
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -43,24 +46,19 @@ class BookController : UITableViewController {
         
         if let chapterNumber = RowSelector.shared.selectedBook?.numChapters {
             if (chapterNumber == 1) {
-                print("Chapter Number: \(chapterNumber)")
                 RowSelector.shared.selectedChapter = 1
                 performSegue(withIdentifier: "BookToScripture", sender: self)
-                }
+            }
             else if chapterNumber == 0 {
-                print("Chapter Number: \(chapterNumber)")
                 performSegue(withIdentifier: "BookToScripture", sender: self)
             }
             else {
-                print("Chapter Number: \(chapterNumber)")
                 newTitle = (self.tableView.cellForRow(at: indexPath)?.textLabel?.text)!
                 performSegue(withIdentifier: "BookToChapter", sender: self)
             }
         }
         else {
-            print("ChapterNumber was nil")
             performSegue(withIdentifier: "BookToScripture", sender: self)
-
         }
     }
     
@@ -68,7 +66,4 @@ class BookController : UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return books.count;
     }
-
-
-    
 }

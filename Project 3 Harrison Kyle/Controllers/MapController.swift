@@ -12,14 +12,19 @@ import CoreLocation
 
 class MapController : UIViewController {
     
+    //MARK: - Variables
+    
     private var locationManager = CLLocationManager()
     var pinId: Int = 0
     var refreshPoints: Bool = false
-    @IBOutlet var mapView: MKMapView!
     var lastTitle: String?
     
+    //MARK: - Outlets
+    
+    @IBOutlet var mapView: MKMapView!
     @IBOutlet weak var mapButton: UIBarButtonItem!
     
+    //MARK: - Lifecycle Hook
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +57,8 @@ class MapController : UIViewController {
         }
     }
     
+    //MARK: - Helper Methods
+    
     func showPoints() {
         var annotations: [Annotation] = []
         if let points = accessPoint.shared.geoPlaces {
@@ -71,7 +78,6 @@ class MapController : UIViewController {
         pinId = 0
         refreshPoints = true
         mapButton.title = "View All"
-        
     }
     
     
@@ -85,6 +91,8 @@ class MapController : UIViewController {
             fatalError()
         }
     }
+    
+    //MARK: - Action
     
     @IBAction func mapButton(_ sender: UIBarButtonItem) {
         if refreshPoints {
@@ -111,16 +119,4 @@ class MapController : UIViewController {
     }
     
     
-}
-
-extension MapController : MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView,
-                 viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let view = mapView.dequeueReusableAnnotationView(withIdentifier: "SomeID",
-                                                         for: annotation)
-        view.canShowCallout = true
-        view.leftCalloutAccessoryView = UIImageView(image: UIImage(named: "BYU_SM9"))
-        view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        return view
-    }
 }

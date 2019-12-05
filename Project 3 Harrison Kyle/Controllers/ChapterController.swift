@@ -11,11 +11,11 @@ import Foundation
 
 class ChapterController : UITableViewController {
     
+    //MARK: - Class Variable
+    
     var rowTitle: String?
     
-    override func viewDidLoad () {
-        super.viewDidLoad()
-    }
+    //MARK: - Delegate Methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier != "BookToScripture" {
@@ -23,7 +23,6 @@ class ChapterController : UITableViewController {
                 if let title = test.textLabel?.text {
                     segue.destination.title = title
                 }
-                
             }
         }
     }
@@ -47,5 +46,4 @@ class ChapterController : UITableViewController {
         }
         return 0
     }
-    
 }

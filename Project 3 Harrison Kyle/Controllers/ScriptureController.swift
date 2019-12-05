@@ -12,12 +12,16 @@ import WebKit
 
 class ScriptureController : UIViewController, WKNavigationDelegate {
     
+    //MARK: - Class Variables
+    
     var geoPlaceId: Int = 0
     private weak var mapViewController: MapController?
     
-    
+    //MARK: - Outlets
     
     @IBOutlet weak var scriptureView: WKWebView!
+    
+    //MARK: - Lifecycle Hooks
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +31,8 @@ class ScriptureController : UIViewController, WKNavigationDelegate {
         scriptureView.loadHTMLString(html, baseURL: nil)
         configureDetailViewController()
     }
+    
+    //MARK: - Delegate methods and helpers
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navController = segue.destination as? UINavigationController {
@@ -40,7 +46,6 @@ class ScriptureController : UIViewController, WKNavigationDelegate {
                     else {
                         nextViewController.title = ownTitle
                         nextViewController.lastTitle = ownTitle
-                        
                     }
                 }
             }
@@ -64,16 +69,14 @@ class ScriptureController : UIViewController, WKNavigationDelegate {
         configureRightButton()
     }
     
-     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-         super.viewWillTransition(to: size, with: coordinator)
-         if UIDevice.current.orientation.isLandscape {
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if UIDevice.current.orientation.isLandscape {
             navigationItem.rightBarButtonItem = nil
-             print("Landscape")
-         } else {
+        } else {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Map", style: .plain, target: self, action: #selector(ScriptureController.showMap))
-             print("Portrait")
-         }
-     }
+        }
+    }
     
     private func configureRightButton() {
         if mapViewController == nil {
@@ -84,14 +87,11 @@ class ScriptureController : UIViewController, WKNavigationDelegate {
     @objc func showMap() {
         ScriptureRenderer.shared.injectGeoPlaceCollector(accessPoint.shared)
         let _ = ScriptureRenderer.shared.htmlForBookId(RowSelector.shared.selectedBook!.id, chapter: RowSelector.shared.selectedChapter ?? 0)
-        
         performSegue(withIdentifier: "ShowMap", sender: self)
-        
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let URLArray = String(navigationAction.request.mainDocumentURL!.absoluteString).split(separator: "/",maxSplits: 50, omittingEmptySubsequences: true)
-        
         if (URLArray.count > 1 && URLArray[1] == "scriptures.byu.edu") {
             decisionHandler(.cancel)
             if let Id = Int(String(URLArray[URLArray.count - 1])) {
