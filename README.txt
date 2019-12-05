@@ -1,0 +1,3 @@
+I showed this app to my wife and shared a series of scriptures in Mosiah chapter 24 with her. We had a good discussion about how God sometimes does not always deliver us from our difficulties when we want to be delivered, but he does strengthen us to be able to bear them and he can promise delivery in the future, which is a great promise.
+
+She also gave some good feedback. She said she would like to see old political boundaries on the map. That would mean implementing a different setting for the map, but would be an interesting problem to do. She also said that she liked the navigation, that it was very intuitive, and that having the navigation on one side and the map on the other was helpful for her.
